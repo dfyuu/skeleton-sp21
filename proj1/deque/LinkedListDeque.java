@@ -105,8 +105,4 @@ public class LinkedListDeque<Item> {
             return getByRecursive(i-1, p.next);
         }
     }
-
-    public boolean equals(Object o) {
-        
-    }
 }

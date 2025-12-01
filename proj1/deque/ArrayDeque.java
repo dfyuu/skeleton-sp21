@@ -41,7 +41,7 @@ public class ArrayDeque<Item> {
             return null;
         }
         Item first = items[lastNext(nextFirst)];
-        nextFirst = firstNext(nextFirst);
+        nextFirst = lastNext(nextFirst);
         size -= 1;
         return first;
     }
@@ -51,7 +51,7 @@ public class ArrayDeque<Item> {
             return null;
         }
         Item last = items[firstNext(nextLast)];
-        nextLast = lastNext(nextLast);
+        nextLast = firstNext(nextLast);
         size -= 1;
         return last;
     }
@@ -59,7 +59,7 @@ public class ArrayDeque<Item> {
     public void resize(int cap) {
         Item[] a = (Item[]) new Object[cap];
         for (int i = 0; i < size; i += 1) {
-            a[i] = items[nextFirst-1];
+            a[i] = items[lastNext(nextFirst)];
             nextFirst = lastNext(nextFirst);
         }
         items = a;
@@ -73,6 +73,7 @@ public class ArrayDeque<Item> {
             resize(size * 2);
         }
         items[nextLast] = i;
+        nextLast = lastNext(nextLast);
         size += 1;
     }
 
@@ -81,6 +82,7 @@ public class ArrayDeque<Item> {
             resize(size * 2);
         }
         items[nextFirst] = i;
+        nextFirst = firstNext(nextFirst);
         size += 1;
     }
 

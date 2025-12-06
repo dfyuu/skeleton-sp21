@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<Item> {
+public class LinkedListDeque<Item> implements Deque<Item> {
     private class ItemNode {
         private Item item;
         private ItemNode prev;
@@ -29,26 +29,26 @@ public class LinkedListDeque<Item> {
         circleSentinel.prev = circleSentinel.next;
     }
 
+    @Override
     public void addFirst(Item i) {
         circleSentinel.next = new ItemNode(i, circleSentinel, circleSentinel.next);
         circleSentinel.next.next.prev = circleSentinel.next;
         size += 1;
     }
 
+    @Override
     public void addLast(Item i) {
         circleSentinel.prev = new ItemNode(i, circleSentinel.prev, circleSentinel);
         circleSentinel.prev.prev.next = circleSentinel.prev;
         size += 1;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         ItemNode lookup = circleSentinel.next;
         for(int i = 0; i < size; i += 1) {
@@ -58,6 +58,7 @@ public class LinkedListDeque<Item> {
         }
     }
 
+    @Override
     public Item removeFirst() {
         if (isEmpty()) {
             return null;
@@ -69,6 +70,7 @@ public class LinkedListDeque<Item> {
         return first;
     }
 
+    @Override
     public Item removeLast() {
         if (isEmpty()) {
             return null;
@@ -80,6 +82,7 @@ public class LinkedListDeque<Item> {
         return last;
     }
 
+    @Override
     public Item get(int index) {
         if (index > size) return null;
         ItemNode p = circleSentinel.next;

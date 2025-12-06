@@ -1,7 +1,7 @@
 package deque;
 
-public class ArrayDeque<Item> {
-    private Item[] items;
+public class ArrayDeque<Item> implements Deque<Item> {
+    Item[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
@@ -28,14 +28,12 @@ public class ArrayDeque<Item> {
         return last + 1;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public Item removeFirst() {
         if (isEmpty()) {
             return null;
@@ -46,6 +44,7 @@ public class ArrayDeque<Item> {
         return first;
     }
 
+    @Override
     public Item removeLast() {
         if (isEmpty()) {
             return null;
@@ -68,6 +67,7 @@ public class ArrayDeque<Item> {
         capacity = cap;
     }
 
+    @Override
     public void addLast(Item i) {
         if (size == items.length) {
             resize(size * 2);
@@ -77,6 +77,7 @@ public class ArrayDeque<Item> {
         size += 1;
     }
 
+    @Override
     public void addFirst(Item i) {
         if (size == items.length) {
             resize(size * 2);
@@ -86,11 +87,20 @@ public class ArrayDeque<Item> {
         size += 1;
     }
 
+    @Override
     public Item get(int index) {
         if (index > size) {
             return null;
         }
         int current = (nextFirst + 1 + index) % capacity;
         return items[current];
+    }
+
+    @Override
+    public void printDeque() {
+        for (int i = 0; i < size; i += 1) {
+            String s = String.valueOf(this.get(i));
+            System.out.print(s + ' ');
+        }
     }
 }

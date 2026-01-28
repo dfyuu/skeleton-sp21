@@ -47,7 +47,7 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        File story = new File(".capers/story");
+        File story = Utils.join(CAPERS_FOLDER, "story");
         String storyContents = Utils.readContentsAsString(story) + text + '\n';
         Utils.writeContents(story, storyContents);
         System.out.print(storyContents);

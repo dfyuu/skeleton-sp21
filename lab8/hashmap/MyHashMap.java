@@ -25,13 +25,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
     }
 
-    protected class hashKeyIterator implements Iterator<K> {
+    protected class HashKeyIterator implements Iterator<K> {
 
         private int currentBucket;
         private int currentItem;
         private Iterator<Node> itBucket;
 
-        public hashKeyIterator() {
+        public HashKeyIterator() {
             currentBucket = 0;
             currentItem = 0;
             itBucket = buckets[0].iterator();
@@ -156,7 +156,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
 
         int i = hash(key, this.m);
 
@@ -164,9 +166,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             return null;
         }
 
-        for (Node n : buckets[i]) {
-            if (n.key.equals(key)) {
-                return n.value;
+        for (Node nn : buckets[i]) {
+            if (nn.key.equals(key)) {
+                return nn.value;
             }
         }
 
@@ -204,10 +206,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
 
         for (int i = 0; i < m; i += 1) {
-            for (Node n : buckets[i]) {
-                K key = n.key;
+            for (Node nn : buckets[i]) {
+                K key = nn.key;
                 int j = hash(key, tempM);
-                tempBuckets[j].add(n);
+                tempBuckets[j].add(nn);
             }
         }
 
@@ -227,14 +229,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     public Iterator<K> iterator() {
-        return new hashKeyIterator();
+        return new HashKeyIterator();
     }
 
     @Override
     public V remove(K key) {
-        if (key == null) throw new IllegalArgumentException("argument to remove() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to remove() is null");
+        }
 
-        if (!containsKey(key)) return null;
+        if (!containsKey(key)) {
+            return null;
+        }
 
         int i = hash(key, m);
         for (Node nn: buckets[i]) {
@@ -250,9 +256,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public V remove(K key, V value) {
 
-        if (key == null) throw new IllegalArgumentException("argument to remove() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to remove() is null");
+        }
 
-        if (!containsKey(key)) return null;
+        if (!containsKey(key)) {
+            return null;
+        }
 
         int i = hash(key, m);
         for (Node nn: buckets[i]) {
